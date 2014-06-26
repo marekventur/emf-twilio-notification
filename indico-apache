@@ -1,0 +1,21 @@
+AddDefaultCharset UTF-8
+NameVirtualHost *:80
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        ServerName localhost
+        DocumentRoot /opt/indico/htdocs
+        Alias /indico/images "/opt/indico/htdocs/images"
+        Alias /indico/css "/opt/indico/htdocs/css"
+        Alias /indico/js "/opt/indico/htdocs/js"
+        Alias /indico/ihelp "/opt/indico/htdocs/ihelp"
+        WSGIDaemonProcess WSGIDAEMON processes=1 threads=1 inactivity-timeout=3600 maximum-requests=10000 python-eggs=/opt/indico/tmp/egg-cache
+        WSGIScriptAlias / "/opt/indico/htdocs/index.wsgi"
+        <Directory "/opt/indico/htdocs">
+            WSGIProcessGroup WSGIDAEMON
+            WSGIApplicationGroup %{GLOBAL}
+            AllowOverride None
+            Options None
+            Order deny,allow
+            Allow from all
+        </Directory>
+</VirtualHost>
